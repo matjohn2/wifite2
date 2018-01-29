@@ -285,8 +285,8 @@ class Handshake(object):
     def analyze(self):
         self.divine_bssid_and_essid()
 
-        pairs = self.tshark_handshakes()
-        Handshake.print_pairs(pairs, self.capfile, 'tshark')
+        #pairs = self.tshark_handshakes()
+        #Handshake.print_pairs(pairs, self.capfile, 'tshark')
 
         pairs = self.pyrit_handshakes()
         Handshake.print_pairs(pairs, self.capfile, 'pyrit')
@@ -363,4 +363,3 @@ if __name__ == '__main__':
 
     hs.analyze()
     print "has_hanshake() =", hs.has_handshake()
-
