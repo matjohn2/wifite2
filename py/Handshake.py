@@ -87,12 +87,16 @@ class Handshake(object):
         essids = set()
 
         # Extract beacon frames from cap file
+        #cmd = [
+        #    'tshark',
+        #    '-r', self.capfile,
+        #    '-R', 'wlan.fc.type_subtype == 0x08 || wlan.fc.type_subtype == 0x05',
+        #    '-2', # tshark: -R without -2 is deprecated.
+        #    '-n'
+        #]
         cmd = [
-            'tshark',
-            '-r', self.capfile,
-            '-R', 'wlan.fc.type_subtype == 0x08 || wlan.fc.type_subtype == 0x05',
-            '-2', # tshark: -R without -2 is deprecated.
-            '-n'
+            'echo',
+            '"hello"'
         ]
         proc = Process(cmd, devnull=False)
         for line in proc.stdout().split('\n'):
@@ -285,8 +289,8 @@ class Handshake(object):
     def analyze(self):
         self.divine_bssid_and_essid()
 
-        #pairs = self.tshark_handshakes()
-        #Handshake.print_pairs(pairs, self.capfile, 'tshark')
+        pairs = self.tshark_handshakes()
+        Handshake.print_pairs(pairs, self.capfile, 'tshark')
 
         pairs = self.pyrit_handshakes()
         Handshake.print_pairs(pairs, self.capfile, 'pyrit')
