@@ -80,13 +80,15 @@ class Scanner(object):
             return False
 
         for target in self.targets:
-            if bssid and bssid.lower() == target.bssid.lower():
-                self.target = target
-                break
-            if essid and essid.lower() == target.essid.lower():
-                self.target = target
-                break
-
+            try:
+                if bssid and bssid.lower() == target.bssid.lower():
+                    self.target = target
+                    break
+                if essid and essid.lower() == target.essid.lower():
+                    self.target = target
+                    break
+            except:
+                print("Found a blank SSID, I think. moving on")
         if self.target:
             Color.pl('\n{+} {C}found target{G} %s {W}({G}%s{W})'
                 % (self.target.bssid, self.target.essid))
@@ -191,4 +193,3 @@ if __name__ == '__main__':
     for t in targets:
         Color.pl("    {W}Selected: %s" % t)
     Configuration.exit_gracefully(0)
-
